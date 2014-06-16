@@ -69,8 +69,7 @@ for (k,v) in playlistPool.iteritems():
         skip = (0.9 * skip) + (random() * ((1.1 * skip) - ((0.9 * skip) + 2)))
         remaining -= min(max(1, skip), remaining - x + 2)
     if invert == True:
-        for b in bitmap:
-            b = not b
+        bitmap = [not b for b in bitmap]
     offset = randrange(longestPool)
     localPool = v[:]
     pointer = offset
