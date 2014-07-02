@@ -7,44 +7,41 @@ from random import randrange
 from random import choice
 from datetime import datetime
 from gmusicapi import Mobileclient
+from sys import exit
 
 api = Mobileclient()
 loggedin = api.login('lol', 'nope')
 
 if loggedin != True:
     print('Not logged in')
+    exit()
+
+print('Retrieving song library... ', end='')
 
 songs = api.get_all_songs()
-playlists = api.get_all_user_playlist_contents()
 
-songPool = {}
+print(str(len(songs)), 'songs')
+print('Scanning for relevant tracks... ', end='')
+
 bumpersPool = []
 signoffPool = []
+playlistPool = {}
+thumbsCount = 0
 
 for s in songs:
-    songPool[s['id']] = s['artist']
-    if s['comment'].find('JRay-FM Bumper') != -1:
+    if s['rating'] == '5':
+        thumbsCount+=1
+        if s['artist'] in playlistPool:
+            playlistPool[s['artist']].append(s['id'])
+        else:
+            playlistPool[s['artist']] = [ s['id'] ]
+    elif s['comment'].find('JRay-FM Bumper') != -1:
         bumpersPool.append(s['id'])
     elif s['comment'].find('JRay-FM Sign-off') != -1:
         signoffPool.append(s['id'])
-		
-print('Songs: ' + str(len(songPool)))
-print('Bumpers: ' + str(len(bumpersPool)))
-print('Sign-off: ' + str(len(signoffPool)))
 
-playlistPool = {}
-        
-for p in playlists:
-    if p['name'] == 'JRayFM-Library':
-        for t in p['tracks']:
-            if songPool[t['trackId']] in playlistPool:
-                playlistPool[songPool[t['trackId']]].append(t['trackId'])
-            else:
-                playlistPool[songPool[t['trackId']]] = [ t['trackId'] ]
-
-print('Library: ' + str(len(playlistPool)))
-for (k,v) in playlistPool.iteritems():
-    print('{' + k + '} ' + str(len(v)))
+print(str(thumbsCount), 'thumbs,', str(len(bumpersPool)), 'bumpers,', str(len(signoffPool)), 'signoffs')
+print('Building playlist... ', end='')
 				
 longestPool = 0
 
@@ -97,20 +94,29 @@ for x in range(longestPool):
         selected = choice(tempList)
         mergedPlaylist.append(selected)
         tempList.remove(selected)
-        
-newPlaylist = api.create_playlist('JRay-FM ' + datetime.now().strftime('%m/%d/%Y %H:%M:%S'))
+
+print('done')
+print('Saving playlist... ', end='')
+
+finalPlaylist = []
 localBumperPool = []
 segmentCount = 0
 
 for i in mergedPlaylist:
-    api.add_songs_to_playlist(newPlaylist, i)
+    finalPlaylist.append(i)
     segmentCount += 1
     if segmentCount > 3:
         segmentCount = 0
         if len(localBumperPool) == 0:
             localBumperPool = bumpersPool[:]
         selected = choice(localBumperPool)
-        api.add_songs_to_playlist(newPlaylist, selected)
+        finalPlaylist.append(selected)
         localBumperPool.remove(selected)
     
-api.add_songs_to_playlist(newPlaylist, choice(signoffPool))
+finalPlaylist.append(choice(signoffPool))
+
+newPlaylist = api.create_playlist('JRay-FM ' + datetime.now().strftime('%m/%d/%Y %H:%M:%S'))
+api.add_songs_to_playlist(newPlaylist, finalPlaylist)
+api.logout()
+
+print('done')
