@@ -11,12 +11,12 @@ import UIKit
 
 class SecondViewController: UITableViewController, MPMediaPickerControllerDelegate {
 
-    private var engine: JRayFMEngine!
+    fileprivate var engine: JRayFMEngine!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.engine = appDelegate.engine
     }
 
@@ -25,54 +25,54 @@ class SecondViewController: UITableViewController, MPMediaPickerControllerDelega
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func addLibraryItem(sender: AnyObject) {
-        let mediaPicker = MPMediaPickerController(mediaTypes: MPMediaType.Music)
+    @IBAction func addLibraryItem(_ sender: AnyObject) {
+        let mediaPicker = MPMediaPickerController(mediaTypes: MPMediaType.music)
         mediaPicker.allowsPickingMultipleItems = true
         mediaPicker.showsCloudItems = true
         mediaPicker.delegate = self
         mediaPicker.prompt = "Add songs to library"
         
-        self.presentViewController(mediaPicker, animated: true, completion: nil)
+        self.present(mediaPicker, animated: true, completion: nil)
     }
 
-    func mediaPicker(mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        engine.addItemsToLibrary(mediaItemCollection.items)
+    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+        self.dismiss(animated: true, completion: nil)
+        engine.addItemsToLibrary(items: mediaItemCollection.items)
         tableView.reloadData()
     }
     
-    func mediaPickerDidCancel(mediaPicker: MPMediaPickerController) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return engine.getSectionCount()
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return engine.getSectionTitle(section)
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return engine.getSectionTitle(section: section)
     }
     
-    override func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return engine.getSectionTitles()
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return engine.getItemCount(section)
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return engine.getItemCount(section: section)
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        let entry = engine.getItemAtIndex(indexPath.section, index: indexPath.item)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let entry = engine.getItemAtIndex(section: indexPath.section, index: indexPath.item)
         cell.textLabel?.text = entry.name
         cell.detailTextLabel?.text = entry.artist
         cell.imageView?.image = entry.image
         return cell
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            engine.removeItemAtIndex(indexPath.section, index: indexPath.item)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            engine.removeItemAtIndex(section: indexPath.section, index: indexPath.item)
             tableView.reloadData()
         }
     }

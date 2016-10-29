@@ -11,10 +11,10 @@ import UIKit
 
 class LibraryEntry {
     
-    private(set) var name: String
-    private(set) var artist: String
-    private(set) var image: UIImage
-    private(set) var id: UInt64
+    fileprivate(set) var name: String
+    fileprivate(set) var artist: String
+    fileprivate(set) var image: UIImage
+    fileprivate(set) var id: UInt64
     
     init() {
         self.name = "[Empty Item]"
@@ -35,7 +35,7 @@ class LibraryEntry {
         let name = mediaItem.title
         let artist = mediaItem.artist
         let image = mediaItem.artwork
-        var uiImage = image?.imageWithSize(image!.bounds.size)
+        var uiImage = image?.image(at: image!.bounds.size)
         
         if uiImage == nil {
             uiImage = UIImage(named: "unknownAlbumArt")

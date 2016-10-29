@@ -10,13 +10,13 @@ import UIKit
 
 class FirstViewController: UITableViewController {
 
-    private var engine: JRayFMEngine!
+    fileprivate var engine: JRayFMEngine!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.engine = appDelegate.engine
     }
 
@@ -25,7 +25,7 @@ class FirstViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func generatePlaylistPressed(sender: AnyObject) {
+    @IBAction func generatePlaylistPressed(_ sender: AnyObject) {
         if engine.getPlaylistItemCount() > 0 {
             self.confirmPlaylistGeneration()
         }
@@ -34,37 +34,37 @@ class FirstViewController: UITableViewController {
         }
     }
     
-    private func generatePlaylist() {
+    fileprivate func generatePlaylist() {
         self.engine.generatePlaylist()
         self.tableView.reloadData()
     }
     
-    private func confirmPlaylistGeneration() {
-        let confirm = UIAlertController(title: "Confirm generation", message: "The current playlist will be lost. Proceed with playlist generation?", preferredStyle: UIAlertControllerStyle.ActionSheet)
+    fileprivate func confirmPlaylistGeneration() {
+        let confirm = UIAlertController(title: "Confirm generation", message: "The current playlist will be lost. Proceed with playlist generation?", preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        let proceedAction = UIAlertAction(title: "Proceed", style: UIAlertActionStyle.Destructive, handler: { a in self.generatePlaylist() })
+        let proceedAction = UIAlertAction(title: "Proceed", style: UIAlertActionStyle.destructive, handler: { a in self.generatePlaylist() })
         confirm.addAction(proceedAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
         confirm.addAction(cancelAction)
         
-        self.presentViewController(confirm, animated: true, completion: nil)
+        self.present(confirm, animated: true, completion: nil)
     }
     
-    @IBAction func playPressed(sender: AnyObject) {
+    @IBAction func playPressed(_ sender: AnyObject) {
         self.engine.startPlaylist()
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.engine.getPlaylistItemCount()
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let entry = engine.getPlaylistItemAtIndex(indexPath.item)
         cell.textLabel?.text = entry.name
         cell.detailTextLabel?.text = entry.artist

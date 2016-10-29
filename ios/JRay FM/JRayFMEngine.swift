@@ -8,16 +8,40 @@
 
 import MediaPlayer
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class JRayFMEngine: NSObject {
     
-    private var library = [(String, [LibraryEntry])]()
+    fileprivate var library = [(String, [LibraryEntry])]()
     
-    private var playlist = [LibraryEntry]()
+    fileprivate var playlist = [LibraryEntry]()
     
-    private static let dataDirectory = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomains: NSSearchPathDomainMask.UserDomainMask).first!
+    fileprivate static let dataDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first!
     
-    private static let dataFile = dataDirectory.URLByAppendingPathComponent("jrayFMLibrary")
+    fileprivate static let dataFile = dataDirectory.appendingPathComponent("jrayFMLibrary")
     
     override init() {
         super.init()
@@ -25,37 +49,57 @@ class JRayFMEngine: NSObject {
         self.loadState()
     }
     
-    private func loadState() {
-        if let state = NSKeyedUnarchiver.unarchiveObjectWithFile(JRayFMEngine.dataFile.path!) as? EngineState {
-            var entities = [MPMediaItem]()
-            for libraryEntry in state.library {
-                let query = MPMediaQuery.songsQuery()
-                query.addFilterPredicate(MPMediaPropertyPredicate(value: NSNumber(unsignedLongLong: libraryEntry), forProperty: MPMediaItemPropertyPersistentID))
-                if let entity = query.items?.first! {
-                    entities.append(entity)
+    fileprivate func loadState() {
+        if let input = InputStream(fileAtPath: JRayFMEngine.dataFile.path) {
+            input.open()
+            
+            if let state = try? JSONSerialization.jsonObject(with: input) {
+                if let dictionary = state as? [String:Any] {
+                    if let entries = dictionary["library"] as? [UInt64] {
+                        var mediaEntities = [MPMediaItem]()
+                        for entry in entries {
+                            let query = MPMediaQuery.songs()
+                            query.addFilterPredicate(MPMediaPropertyPredicate(value: NSNumber(value: entry as UInt64), forProperty: MPMediaItemPropertyPersistentID))
+                            if let entity = query.items?.first! {
+                                mediaEntities.append(entity)
+                            }
+                        }
+                        _ = self.addItemsToLibraryInternal(items: mediaEntities)
+                    }
                 }
             }
-            self.addItemsToLibraryInternal(entities)
+            
+            input.close()
         }
     }
     
-    private func saveState() {
-        NSKeyedArchiver.archiveRootObject(EngineState(libraryState: self.library.flatMap({ $0.1 }).map({ $0.id }))!, toFile: JRayFMEngine.dataFile.path!)
+    fileprivate func saveState() {
+        let entries = self.library.flatMap({ $0.1 }).map({ $0.id })
+        let dictionary = ["library": entries]
+        
+        if let output = OutputStream(toFileAtPath: JRayFMEngine.dataFile.path, append: false) {
+            output.open()
+            
+            var error : NSError?
+            _ = JSONSerialization.writeJSONObject(dictionary, to: output, error: &error)
+            
+            output.close()
+        }
     }
     
     func addItemsToLibrary(items: [MPMediaItem]) {
-        let itemsAdded = self.addItemsToLibraryInternal(items)
+        let itemsAdded = self.addItemsToLibraryInternal(items: items)
         
         if itemsAdded {
-            self.library.sortInPlace({ $0.0 < $1.0 })
+            self.library.sort(by: { $0.0 < $1.0 })
             
             for x in 0..<self.library.count {
-                self.library[x].1.sortInPlace({ (s1, s2) in
+                self.library[x].1.sort(by: { (s1, s2) in
                     let artistCompare = s1.artist.localizedCaseInsensitiveCompare(s2.artist)
-                    if artistCompare != NSComparisonResult.OrderedSame {
-                        return artistCompare == NSComparisonResult.OrderedAscending
+                    if artistCompare != ComparisonResult.orderedSame {
+                        return artistCompare == ComparisonResult.orderedAscending
                     }
-                    return s1.name.localizedCaseInsensitiveCompare(s2.name) == NSComparisonResult.OrderedAscending
+                    return s1.name.localizedCaseInsensitiveCompare(s2.name) == ComparisonResult.orderedAscending
                 })
             }
             
@@ -63,14 +107,14 @@ class JRayFMEngine: NSObject {
         }
     }
     
-    private func addItemsToLibraryInternal(items: [MPMediaItem]) -> Bool {
+    fileprivate func addItemsToLibraryInternal(items: [MPMediaItem]) -> Bool {
         var itemsAdded = false
         for item in items {
             let entry = LibraryEntry(mediaItem: item)
-            if !library.contains({ $0.1.contains({ $0.id == entry.id })}) {
+            if !library.contains(where: { $0.1.contains(where: { $0.id == entry.id })}) {
                 itemsAdded = true
                 
-                let sectionName = self.getSectionForEntry(entry)
+                let sectionName = self.getSectionForEntry(entry: entry)
                 var foundSection = false
                 for x in 0..<self.library.count {
                     if self.library[x].0 == sectionName {
@@ -87,13 +131,13 @@ class JRayFMEngine: NSObject {
         return itemsAdded
     }
     
-    private let letterSet = NSCharacterSet.letterCharacterSet()
+    fileprivate let letterSet = CharacterSet.letters
     
-    private func getSectionForEntry(entry: LibraryEntry) -> String {
+    fileprivate func getSectionForEntry(entry: LibraryEntry) -> String {
         let section = entry.artist.unicodeScalars.first!
-        if letterSet.longCharacterIsMember(section.value) {
-            let sectionString = section.escape(asASCII: false)
-            return sectionString.uppercaseString
+        if letterSet.contains(UnicodeScalar(section.value)!) {
+            let sectionString = section.escaped(asASCII: false)
+            return sectionString.uppercased()
         }
         else {
             return "#"
@@ -121,18 +165,18 @@ class JRayFMEngine: NSObject {
     }
     
     func removeItemAtIndex(section: Int, index: Int) {
-        self.library[section].1.removeAtIndex(index)
+        self.library[section].1.remove(at: index)
         self.saveState()
     }
     
     func generatePlaylist() {
         self.playlist.removeAll()
         
-        let (largestGroup, groupedSongs) = JRayFMEngine.groupLibraryEntries(self.library.flatMap({ $0.1 }))
+        let (largestGroup, groupedSongs) = JRayFMEngine.groupLibraryEntries(library: self.library.flatMap({ $0.1 }))
         
         var filledPlaylists = [[LibraryEntry]]()
         for (_, group) in groupedSongs {
-            filledPlaylists.append(JRayFMEngine.fillList(group, length: largestGroup))
+            filledPlaylists.append(JRayFMEngine.fillList(entries: group, length: largestGroup))
         }
         
         for sliceIndex in 0..<largestGroup {
@@ -145,7 +189,7 @@ class JRayFMEngine: NSObject {
             
             for _ in 0..<slice.count {
                 let next = Int(arc4random_uniform(UInt32(slice.count)))
-                let nextItem = slice.removeAtIndex(next)
+                let nextItem = slice.remove(at: next)
                 self.playlist.append(nextItem)
             }
         }
@@ -159,8 +203,8 @@ class JRayFMEngine: NSObject {
             }
             
             let next = Int(arc4random_uniform(UInt32(localBumperCollection.count)))
-            let nextItem = localBumperCollection.removeAtIndex(next)
-            self.playlist.insert(nextItem, atIndex: pointer)
+            let nextItem = localBumperCollection.remove(at: next)
+            self.playlist.insert(nextItem, at: pointer)
             
             pointer += 4
         }
@@ -170,7 +214,7 @@ class JRayFMEngine: NSObject {
         self.playlist.append(selectedSignoff)
     }
     
-    private static func groupLibraryEntries(library: [LibraryEntry]) -> (Int, [String : [LibraryEntry]]) {
+    fileprivate static func groupLibraryEntries(library: [LibraryEntry]) -> (Int, [String : [LibraryEntry]]) {
         var groupedSongs = [String : [LibraryEntry]]()
         var largestGroup = 0
         for libraryItem in library {
@@ -188,14 +232,14 @@ class JRayFMEngine: NSObject {
         return (largestGroup, groupedSongs)
     }
     
-    private static func fillList(entries: [LibraryEntry], length: Int) -> [LibraryEntry] {
+    fileprivate static func fillList(entries: [LibraryEntry], length: Int) -> [LibraryEntry] {
         let invert = entries.count > Int(Double(length) / 2)
         let ones = invert ? length - entries.count : entries.count
-        var bitmap = [Bool](count: length, repeatedValue: false)
+        var bitmap = [Bool](repeating: false, count: length)
         
         if ones > 0 {
             var remaining = length
-            for x in (1...ones).reverse() {
+            for x in (1...ones).reversed() {
                 bitmap[length - remaining] = true
                 var skip = Double(remaining) / Double(x)
                 let randomFactor = Double(arc4random_uniform(10000)) / 10000
@@ -211,7 +255,7 @@ class JRayFMEngine: NSObject {
         let offset = Int(arc4random_uniform(UInt32(length)))
         if offset > 0 {
             for _ in 1...offset {
-                let head = bitmap.removeAtIndex(0)
+                let head = bitmap.remove(at: 0)
                 bitmap.append(head)
             }
         }
@@ -221,7 +265,7 @@ class JRayFMEngine: NSObject {
         for x in bitmap {
             if x {
                 let randomIndex = Int(arc4random_uniform(UInt32(localEntries.count)))
-                let randomEntry = localEntries.removeAtIndex(randomIndex)
+                let randomEntry = localEntries.remove(at: randomIndex)
                 filledPlaylist.append(randomEntry)
             }
             else {
@@ -232,18 +276,18 @@ class JRayFMEngine: NSObject {
         return filledPlaylist
     }
     
-    private static func getStationCollectons() -> ([LibraryEntry], [LibraryEntry]) {
-        let songsQuery = MPMediaQuery.songsQuery()
+    fileprivate static func getStationCollectons() -> ([LibraryEntry], [LibraryEntry]) {
+        let songsQuery = MPMediaQuery.songs()
         let artistFilter = MPMediaPropertyPredicate(value: "Jonathan Ray", forProperty: MPMediaItemPropertyArtist)
         songsQuery.addFilterPredicate(artistFilter)
         var bumperCollection = [LibraryEntry]()
         var signoffCollection = [LibraryEntry]()
         for item in songsQuery.items! {
             if let itemComments = item.comments {
-                if itemComments.containsString("JRay-FM Bumper") {
+                if itemComments.contains("JRay-FM Bumper") {
                     bumperCollection.append(LibraryEntry(mediaItem: item))
                 }
-                else if itemComments.containsString("JRay-FM Sign-off") {
+                else if itemComments.contains("JRay-FM Sign-off") {
                     signoffCollection.append(LibraryEntry(mediaItem: item))
                 }
             }
@@ -255,12 +299,12 @@ class JRayFMEngine: NSObject {
         let musicPlayer = MPMusicPlayerController.systemMusicPlayer()
         let mediaItems = self.playlist.map(
             { (libraryEntry) -> MPMediaItem in
-                let query = MPMediaQuery.songsQuery()
-                query.addFilterPredicate(MPMediaPropertyPredicate(value: NSNumber(unsignedLongLong: libraryEntry.id), forProperty: MPMediaItemPropertyPersistentID))
+                let query = MPMediaQuery.songs()
+                query.addFilterPredicate(MPMediaPropertyPredicate(value: NSNumber(value: libraryEntry.id as UInt64), forProperty: MPMediaItemPropertyPersistentID))
                 return query.items!.first!
             })
         let mediaItemCollection = MPMediaItemCollection(items: mediaItems)
-        musicPlayer.setQueueWithItemCollection(mediaItemCollection)
+        musicPlayer.setQueue(with: mediaItemCollection)
         
         musicPlayer.play()
     }
@@ -269,7 +313,7 @@ class JRayFMEngine: NSObject {
         return self.playlist.count
     }
     
-    func getPlaylistItemAtIndex(index: Int) -> LibraryEntry {
+    func getPlaylistItemAtIndex(_ index: Int) -> LibraryEntry {
         return self.playlist[index]
     }
 }

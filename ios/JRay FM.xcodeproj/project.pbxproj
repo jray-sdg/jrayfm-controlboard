@@ -13,7 +13,6 @@
 		AB11337B1CBB2B05008EAE6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB1133791CBB2B05008EAE6D /* Main.storyboard */; };
 		AB11337D1CBB2B05008EAE6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB11337C1CBB2B05008EAE6D /* Assets.xcassets */; };
 		AB1133801CBB2B05008EAE6D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB11337E1CBB2B05008EAE6D /* LaunchScreen.storyboard */; };
-		AB5F5E101CC9E29E003702B8 /* EngineState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5F5E0F1CC9E29E003702B8 /* EngineState.swift */; };
 		AB8533001CC6682E000DD163 /* JRayFMEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8532FF1CC6682E000DD163 /* JRayFMEngine.swift */; };
 		AB8533021CC66847000DD163 /* LibraryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8533011CC66847000DD163 /* LibraryEntry.swift */; };
 /* End PBXBuildFile section */
@@ -27,7 +26,6 @@
 		AB11337C1CBB2B05008EAE6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB11337F1CBB2B05008EAE6D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB1133811CBB2B05008EAE6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AB5F5E0F1CC9E29E003702B8 /* EngineState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EngineState.swift; sourceTree = "<group>"; };
 		AB8532FF1CC6682E000DD163 /* JRayFMEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JRayFMEngine.swift; sourceTree = "<group>"; };
 		AB8533011CC66847000DD163 /* LibraryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,7 +69,6 @@
 				AB1133811CBB2B05008EAE6D /* Info.plist */,
 				AB8532FF1CC6682E000DD163 /* JRayFMEngine.swift */,
 				AB8533011CC66847000DD163 /* LibraryEntry.swift */,
-				AB5F5E0F1CC9E29E003702B8 /* EngineState.swift */,
 			);
 			path = "JRay FM";
 			sourceTree = "<group>";
@@ -103,12 +100,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Jonathan Ray";
 				TargetAttributes = {
 					AB11336F1CBB2B05008EAE6D = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = J8SEMX3QUB;
+						LastSwiftMigration = 0810;
 					};
 				};
 			};
@@ -153,7 +151,6 @@
 				AB1133781CBB2B05008EAE6D /* SecondViewController.swift in Sources */,
 				AB1133741CBB2B05008EAE6D /* AppDelegate.swift in Sources */,
 				AB1133761CBB2B05008EAE6D /* FirstViewController.swift in Sources */,
-				AB5F5E101CC9E29E003702B8 /* EngineState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,8 +190,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -216,7 +215,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -239,8 +238,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -256,9 +257,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -270,11 +272,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = J8SEMX3QUB;
 				INFOPLIST_FILE = "JRay FM/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jrayri.JRay-FM";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -284,11 +288,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = J8SEMX3QUB;
 				INFOPLIST_FILE = "JRay FM/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jrayri.JRay-FM";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
