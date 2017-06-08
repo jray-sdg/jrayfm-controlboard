@@ -8,30 +8,6 @@
 
 import MediaPlayer
 import UIKit
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 class JRayFMEngine: NSObject {
     
@@ -225,7 +201,7 @@ class JRayFMEngine: NSObject {
                 groupedSongs[libraryItem.artist] = [libraryItem]
             }
             
-            if groupedSongs[libraryItem.artist]?.count > largestGroup {
+            if groupedSongs[libraryItem.artist]!.count > largestGroup {
                 largestGroup = groupedSongs[libraryItem.artist]!.count
             }
         }
@@ -296,7 +272,7 @@ class JRayFMEngine: NSObject {
     }
     
     func startPlaylist() {
-        let musicPlayer = MPMusicPlayerController.systemMusicPlayer()
+        let musicPlayer = MPMusicPlayerController.systemMusicPlayer
         let mediaItems = self.playlist.map(
             { (libraryEntry) -> MPMediaItem in
                 let query = MPMediaQuery.songs()
