@@ -11,7 +11,7 @@ import UIKit
 
 class SecondViewController: UITableViewController, MPMediaPickerControllerDelegate {
 
-    fileprivate var engine: JRayFMEngine!
+    private var engine: JRayFMEngine!
     
     override func viewDidLoad() {
         super.viewDidLoad()

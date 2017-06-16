@@ -11,13 +11,13 @@ import UIKit
 
 class JRayFMEngine: NSObject {
     
-    fileprivate var library = [(String, [LibraryEntry])]()
+    private var library = [(String, [LibraryEntry])]()
     
-    fileprivate var playlist = [LibraryEntry]()
+    private var playlist = [LibraryEntry]()
     
-    fileprivate static let dataDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first!
+    private static let dataDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).first!
     
-    fileprivate static let dataFile = dataDirectory.appendingPathComponent("jrayFMLibrary")
+    private static let dataFile = dataDirectory.appendingPathComponent("jrayFMLibrary")
     
     override init() {
         super.init()
@@ -25,7 +25,7 @@ class JRayFMEngine: NSObject {
         self.loadState()
     }
     
-    fileprivate func loadState() {
+    private func loadState() {
         if let input = InputStream(fileAtPath: JRayFMEngine.dataFile.path) {
             input.open()
             
@@ -49,7 +49,7 @@ class JRayFMEngine: NSObject {
         }
     }
     
-    fileprivate func saveState() {
+    private func saveState() {
         let entries = self.library.flatMap({ $0.1 }).map({ $0.id })
         let dictionary = ["library": entries]
         
@@ -83,7 +83,7 @@ class JRayFMEngine: NSObject {
         }
     }
     
-    fileprivate func addItemsToLibraryInternal(items: [MPMediaItem]) -> Bool {
+    private func addItemsToLibraryInternal(items: [MPMediaItem]) -> Bool {
         var itemsAdded = false
         for item in items {
             let entry = LibraryEntry(mediaItem: item)
@@ -107,9 +107,9 @@ class JRayFMEngine: NSObject {
         return itemsAdded
     }
     
-    fileprivate let letterSet = CharacterSet.letters
+    private let letterSet = CharacterSet.letters
     
-    fileprivate func getSectionForEntry(entry: LibraryEntry) -> String {
+    private func getSectionForEntry(entry: LibraryEntry) -> String {
         let section = entry.artist.unicodeScalars.first!
         if letterSet.contains(UnicodeScalar(section.value)!) {
             let sectionString = section.escaped(asASCII: false)
@@ -190,7 +190,7 @@ class JRayFMEngine: NSObject {
         self.playlist.append(selectedSignoff)
     }
     
-    fileprivate static func groupLibraryEntries(library: [LibraryEntry]) -> (Int, [String : [LibraryEntry]]) {
+    private static func groupLibraryEntries(library: [LibraryEntry]) -> (Int, [String : [LibraryEntry]]) {
         var groupedSongs = [String : [LibraryEntry]]()
         var largestGroup = 0
         for libraryItem in library {
@@ -208,7 +208,7 @@ class JRayFMEngine: NSObject {
         return (largestGroup, groupedSongs)
     }
     
-    fileprivate static func fillList(entries: [LibraryEntry], length: Int) -> [LibraryEntry] {
+    private static func fillList(entries: [LibraryEntry], length: Int) -> [LibraryEntry] {
         let invert = entries.count > Int(Double(length) / 2)
         let ones = invert ? length - entries.count : entries.count
         var bitmap = [Bool](repeating: false, count: length)
@@ -252,7 +252,7 @@ class JRayFMEngine: NSObject {
         return filledPlaylist
     }
     
-    fileprivate static func getStationCollectons() -> ([LibraryEntry], [LibraryEntry]) {
+    private static func getStationCollectons() -> ([LibraryEntry], [LibraryEntry]) {
         let songsQuery = MPMediaQuery.songs()
         let artistFilter = MPMediaPropertyPredicate(value: "Jonathan Ray", forProperty: MPMediaItemPropertyArtist)
         songsQuery.addFilterPredicate(artistFilter)

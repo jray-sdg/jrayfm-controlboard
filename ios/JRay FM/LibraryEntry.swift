@@ -11,10 +11,10 @@ import UIKit
 
 class LibraryEntry {
     
-    fileprivate(set) var name: String
-    fileprivate(set) var artist: String
-    fileprivate(set) var image: UIImage
-    fileprivate(set) var id: UInt64
+    private(set) var name: String
+    private(set) var artist: String
+    private(set) var image: UIImage
+    private(set) var id: UInt64
     
     init() {
         self.name = "[Empty Item]"

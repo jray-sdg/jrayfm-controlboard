@@ -10,7 +10,7 @@ import UIKit
 
 class FirstViewController: UITableViewController {
 
-    fileprivate var engine: JRayFMEngine!
+    private var engine: JRayFMEngine!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +34,12 @@ class FirstViewController: UITableViewController {
         }
     }
     
-    fileprivate func generatePlaylist() {
+    private func generatePlaylist() {
         self.engine.generatePlaylist()
         self.tableView.reloadData()
     }
     
-    fileprivate func confirmPlaylistGeneration() {
+    private func confirmPlaylistGeneration() {
         let confirm = UIAlertController(title: "Confirm generation", message: "The current playlist will be lost. Proceed with playlist generation?", preferredStyle: UIAlertControllerStyle.actionSheet)
         
         let proceedAction = UIAlertAction(title: "Proceed", style: UIAlertActionStyle.destructive, handler: { a in self.generatePlaylist() })
