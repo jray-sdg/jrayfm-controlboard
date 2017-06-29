@@ -10,7 +10,9 @@ import MediaPlayer
 import UIKit
 
 class SecondViewController: UITableViewController, MPMediaPickerControllerDelegate {
-
+    @IBOutlet var editButton: UIBarButtonItem!
+    @IBOutlet var doneButton: UIBarButtonItem!
+    
     private var engine: JRayFMEngine!
     
     override func viewDidLoad() {
@@ -18,6 +20,8 @@ class SecondViewController: UITableViewController, MPMediaPickerControllerDelega
         // Do any additional setup after loading the view, typically from a nib.
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.engine = appDelegate.engine
+        
+        self.editButtonVisible(animate: false);
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,6 +79,24 @@ class SecondViewController: UITableViewController, MPMediaPickerControllerDelega
             engine.removeItemAtIndex(section: indexPath.section, index: indexPath.item)
             tableView.reloadData()
         }
+    }
+    
+    @IBAction func editButtonPressed(_ sender: Any) {
+        self.doneButtonVisible(animate: true)
+        tableView.setEditing(true, animated: true)
+    }
+    
+    @IBAction func doneButtonPressed(_ sender: Any) {
+        self.editButtonVisible(animate: true)
+        tableView.setEditing(false, animated: true)
+    }
+    
+    func editButtonVisible(animate: Bool) {
+        self.navigationItem.setLeftBarButtonItems([editButton], animated: animate)
+    }
+    
+    func doneButtonVisible(animate:Bool) {
+        self.navigationItem.setLeftBarButtonItems([doneButton], animated: animate)
     }
 }
 
