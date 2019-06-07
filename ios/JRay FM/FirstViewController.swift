@@ -40,12 +40,12 @@ class FirstViewController: UITableViewController {
     }
     
     private func confirmPlaylistGeneration() {
-        let confirm = UIAlertController(title: "Confirm generation", message: "The current playlist will be lost. Proceed with playlist generation?", preferredStyle: UIAlertControllerStyle.actionSheet)
+        let confirm = UIAlertController(title: "Confirm generation", message: "The current playlist will be lost. Proceed with playlist generation?", preferredStyle: UIAlertController.Style.actionSheet)
         
-        let proceedAction = UIAlertAction(title: "Proceed", style: UIAlertActionStyle.destructive, handler: { a in self.generatePlaylist() })
+        let proceedAction = UIAlertAction(title: "Proceed", style: UIAlertAction.Style.destructive, handler: { a in self.generatePlaylist() })
         confirm.addAction(proceedAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
         confirm.addAction(cancelAction)
         
         self.present(confirm, animated: true, completion: nil)

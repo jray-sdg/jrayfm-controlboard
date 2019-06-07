@@ -74,8 +74,8 @@ class SecondViewController: UITableViewController, MPMediaPickerControllerDelega
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.delete {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
             engine.removeItemAtIndex(section: indexPath.section, index: indexPath.item)
             tableView.reloadData()
         }
