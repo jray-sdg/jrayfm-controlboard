@@ -36,7 +36,7 @@ class JRayFMEngine: NSObject {
                         for entry in entries {
                             let query = MPMediaQuery.songs()
                             query.addFilterPredicate(MPMediaPropertyPredicate(value: NSNumber(value: entry as UInt64), forProperty: MPMediaItemPropertyPersistentID))
-                            if let entity = query.items?.first! {
+                            if let entity = query.items?.first {
                                 mediaEntities.append(entity)
                             }
                         }
