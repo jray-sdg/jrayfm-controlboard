@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		276775F62476200B0001BD41 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276775F52476200B0001BD41 /* IntentHandler.swift */; };
+		276775FA2476200B0001BD41 /* JRayFMIntents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 276775F32476200B0001BD41 /* JRayFMIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		27677600247622F80001BD41 /* GenerateAndPlayIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276775FF247622F80001BD41 /* GenerateAndPlayIntent.swift */; };
 		AB1133741CBB2B05008EAE6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1133731CBB2B05008EAE6D /* AppDelegate.swift */; };
 		AB1133761CBB2B05008EAE6D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1133751CBB2B05008EAE6D /* FirstViewController.swift */; };
 		AB1133781CBB2B05008EAE6D /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1133771CBB2B05008EAE6D /* SecondViewController.swift */; };
@@ -17,7 +20,36 @@
 		AB8533021CC66847000DD163 /* LibraryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8533011CC66847000DD163 /* LibraryEntry.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		276775F82476200B0001BD41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB1133681CBB2B05008EAE6D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 276775F22476200B0001BD41;
+			remoteInfo = JRayFMIntents;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		276775FE2476200B0001BD41 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				276775FA2476200B0001BD41 /* JRayFMIntents.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		276775EE24761FF20001BD41 /* JRay FM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "JRay FM.entitlements"; sourceTree = "<group>"; };
+		276775F32476200B0001BD41 /* JRayFMIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JRayFMIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		276775F52476200B0001BD41 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		276775F72476200B0001BD41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		276775FF247622F80001BD41 /* GenerateAndPlayIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateAndPlayIntent.swift; sourceTree = "<group>"; };
 		AB1133701CBB2B05008EAE6D /* JRay FM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JRay FM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB1133731CBB2B05008EAE6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB1133751CBB2B05008EAE6D /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -31,6 +63,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		276775F02476200B0001BD41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB11336D1CBB2B05008EAE6D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -41,10 +80,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		276775F42476200B0001BD41 /* JRayFMIntents */ = {
+			isa = PBXGroup;
+			children = (
+				276775F52476200B0001BD41 /* IntentHandler.swift */,
+				276775F72476200B0001BD41 /* Info.plist */,
+				276775FF247622F80001BD41 /* GenerateAndPlayIntent.swift */,
+			);
+			path = JRayFMIntents;
+			sourceTree = "<group>";
+		};
 		AB1133671CBB2B05008EAE6D = {
 			isa = PBXGroup;
 			children = (
 				AB1133721CBB2B05008EAE6D /* JRay FM */,
+				276775F42476200B0001BD41 /* JRayFMIntents */,
 				AB1133711CBB2B05008EAE6D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				AB1133701CBB2B05008EAE6D /* JRay FM.app */,
+				276775F32476200B0001BD41 /* JRayFMIntents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,6 +111,7 @@
 		AB1133721CBB2B05008EAE6D /* JRay FM */ = {
 			isa = PBXGroup;
 			children = (
+				276775EE24761FF20001BD41 /* JRay FM.entitlements */,
 				AB1133731CBB2B05008EAE6D /* AppDelegate.swift */,
 				AB1133751CBB2B05008EAE6D /* FirstViewController.swift */,
 				AB1133771CBB2B05008EAE6D /* SecondViewController.swift */,
@@ -76,6 +128,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		276775F22476200B0001BD41 /* JRayFMIntents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 276775FB2476200B0001BD41 /* Build configuration list for PBXNativeTarget "JRayFMIntents" */;
+			buildPhases = (
+				276775EF2476200B0001BD41 /* Sources */,
+				276775F02476200B0001BD41 /* Frameworks */,
+				276775F12476200B0001BD41 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JRayFMIntents;
+			productName = JRayFMIntents;
+			productReference = 276775F32476200B0001BD41 /* JRayFMIntents.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		AB11336F1CBB2B05008EAE6D /* JRay FM */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB1133841CBB2B05008EAE6D /* Build configuration list for PBXNativeTarget "JRay FM" */;
@@ -83,10 +152,12 @@
 				AB11336C1CBB2B05008EAE6D /* Sources */,
 				AB11336D1CBB2B05008EAE6D /* Frameworks */,
 				AB11336E1CBB2B05008EAE6D /* Resources */,
+				276775FE2476200B0001BD41 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				276775F92476200B0001BD41 /* PBXTargetDependency */,
 			);
 			name = "JRay FM";
 			productName = "JRay FM";
@@ -99,10 +170,15 @@
 		AB1133681CBB2B05008EAE6D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Jonathan Ray";
 				TargetAttributes = {
+					276775F22476200B0001BD41 = {
+						CreatedOnToolsVersion = 11.5;
+						DevelopmentTeam = J8SEMX3QUB;
+						ProvisioningStyle = Automatic;
+					};
 					AB11336F1CBB2B05008EAE6D = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = J8SEMX3QUB;
@@ -124,11 +200,19 @@
 			projectRoot = "";
 			targets = (
 				AB11336F1CBB2B05008EAE6D /* JRay FM */,
+				276775F22476200B0001BD41 /* JRayFMIntents */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		276775F12476200B0001BD41 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB11336E1CBB2B05008EAE6D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -142,6 +226,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		276775EF2476200B0001BD41 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27677600247622F80001BD41 /* GenerateAndPlayIntent.swift in Sources */,
+				276775F62476200B0001BD41 /* IntentHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB11336C1CBB2B05008EAE6D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -155,6 +248,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		276775F92476200B0001BD41 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 276775F22476200B0001BD41 /* JRayFMIntents */;
+			targetProxy = 276775F82476200B0001BD41 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AB1133791CBB2B05008EAE6D /* Main.storyboard */ = {
@@ -176,6 +277,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		276775FC2476200B0001BD41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J8SEMX3QUB;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = JRayFMIntents/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jrayri.JRay-FM.JRayFMIntents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		276775FD2476200B0001BD41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J8SEMX3QUB;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = JRayFMIntents/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jrayri.JRay-FM.JRayFMIntents";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		AB1133821CBB2B05008EAE6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -285,7 +438,9 @@
 		AB1133851CBB2B05008EAE6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "JRay FM/JRay FM.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = J8SEMX3QUB;
@@ -303,7 +458,9 @@
 		AB1133861CBB2B05008EAE6D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "JRay FM/JRay FM.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = J8SEMX3QUB;
@@ -321,6 +478,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		276775FB2476200B0001BD41 /* Build configuration list for PBXNativeTarget "JRayFMIntents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				276775FC2476200B0001BD41 /* Debug */,
+				276775FD2476200B0001BD41 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AB11336B1CBB2B05008EAE6D /* Build configuration list for PBXProject "JRay FM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

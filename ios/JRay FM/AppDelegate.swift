@@ -6,6 +6,7 @@
 //  Copyright © 2016 Jonathan Ray. All rights reserved.
 //
 
+import Intents
 import UIKit
 
 @UIApplicationMain
@@ -45,6 +46,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func application(_ application: UIApplication, handle intent: INIntent, completionHandler: @escaping (INIntentResponse) -> Void) {
+        // Entry point when launched from Siri
+        
+        if self.engine == nil {
+            self.engine = JRayFMEngine()
+        }
+        
+        if !(intent is INPlayMediaIntent) {
+            completionHandler(INPlayMediaIntentResponse(code: .failure, userActivity: nil))
+            return
+        }
+        
+        self.engine?.generatePlaylist()
+        self.engine?.startPlaylist()
+        
+        completionHandler(INPlayMediaIntentResponse(code: .success, userActivity: nil))
+    }
 }
 
