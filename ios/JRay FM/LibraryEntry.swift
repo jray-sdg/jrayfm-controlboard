@@ -13,17 +13,17 @@ class LibraryEntry {
     
     private(set) var name: String
     private(set) var artist: String
-    private(set) var image: UIImage
+    private(set) var image: UIImage?
     private(set) var id: UInt64
     
     init() {
         self.name = "[Empty Item]"
         self.artist = "[Empty Item]"
-        self.image = UIImage(named: "unknownAlbumArt")!
+        self.image = nil
         self.id = UInt64.max
     }
     
-    init(entryName: String, entryArtist: String, entryImage: UIImage, entryId: UInt64) {
+    init(entryName: String, entryArtist: String, entryImage: UIImage?, entryId: UInt64) {
         self.name = entryName
         self.artist = entryArtist
         self.image = entryImage
@@ -35,13 +35,9 @@ class LibraryEntry {
         let name = mediaItem.title
         let artist = mediaItem.artist
         let image = mediaItem.artwork
-        var uiImage = image?.image(at: image!.bounds.size)
+        let uiImage = image?.image(at: image!.bounds.size)
         
-        if uiImage == nil {
-            uiImage = UIImage(named: "unknownAlbumArt")
-        }
-        
-        self.init(entryName: name!, entryArtist: artist!, entryImage: uiImage!, entryId: id)
+        self.init(entryName: name!, entryArtist: artist!, entryImage: uiImage, entryId: id)
     }
     
     func isEmpty() -> Bool {

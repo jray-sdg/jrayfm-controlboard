@@ -15,11 +15,15 @@ class SecondViewController: UITableViewController, MPMediaPickerControllerDelega
     
     private var engine: JRayFMEngine!
     
+    private var defaultEntryImage: UIImage!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.engine = appDelegate.engine
+        
+        self.defaultEntryImage = UIImage(systemName: "tv.music.note.fill")
         
         self.editButtonVisible(animate: false);
     }
@@ -70,7 +74,15 @@ class SecondViewController: UITableViewController, MPMediaPickerControllerDelega
         let entry = engine.getItemAtIndex(section: indexPath.section, index: indexPath.item)
         cell.textLabel?.text = entry.name
         cell.detailTextLabel?.text = entry.artist
-        cell.imageView?.image = entry.image
+        
+        if entry.image != nil {
+            cell.imageView?.image = entry.image
+        }
+        else {
+            cell.imageView?.image = self.defaultEntryImage
+            cell.imageView?.tintColor = UIColor.label
+        }
+        
         return cell
     }
     
