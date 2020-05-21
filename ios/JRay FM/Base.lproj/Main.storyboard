@@ -11,7 +11,7 @@
         <scene sceneID="DIJ-3l-Btt">
             <objects>
                 <navigationController id="jhm-7m-7eZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Control Panel" image="first" id="7mU-9s-Ech"/>
+                    <tabBarItem key="tabBarItem" title="Control Panel" image="gauge" catalog="system" id="7mU-9s-Ech"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pPg-86-GVv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -159,7 +159,7 @@
         <scene sceneID="b9p-JN-nXz">
             <objects>
                 <navigationController id="LBt-U2-OHZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Library" image="second" id="fpq-Br-oha"/>
+                    <tabBarItem key="tabBarItem" title="Library" image="music.note.list" catalog="system" id="fpq-Br-oha"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gua-Nb-68U">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -193,7 +193,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
+        <image name="gauge" catalog="system" width="128" height="121"/>
+        <image name="music.note.list" catalog="system" width="128" height="113"/>
     </resources>
 </document>
