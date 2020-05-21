@@ -10,6 +10,7 @@
 		276775F62476200B0001BD41 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276775F52476200B0001BD41 /* IntentHandler.swift */; };
 		276775FA2476200B0001BD41 /* JRayFMIntents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 276775F32476200B0001BD41 /* JRayFMIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		27677600247622F80001BD41 /* GenerateAndPlayIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 276775FF247622F80001BD41 /* GenerateAndPlayIntent.swift */; };
+		27677602247634E70001BD41 /* AppIntentVocabulary.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27677601247634E70001BD41 /* AppIntentVocabulary.plist */; };
 		AB1133741CBB2B05008EAE6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1133731CBB2B05008EAE6D /* AppDelegate.swift */; };
 		AB1133761CBB2B05008EAE6D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1133751CBB2B05008EAE6D /* FirstViewController.swift */; };
 		AB1133781CBB2B05008EAE6D /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1133771CBB2B05008EAE6D /* SecondViewController.swift */; };
@@ -50,6 +51,7 @@
 		276775F52476200B0001BD41 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		276775F72476200B0001BD41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		276775FF247622F80001BD41 /* GenerateAndPlayIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateAndPlayIntent.swift; sourceTree = "<group>"; };
+		27677601247634E70001BD41 /* AppIntentVocabulary.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppIntentVocabulary.plist; sourceTree = "<group>"; };
 		AB1133701CBB2B05008EAE6D /* JRay FM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JRay FM.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB1133731CBB2B05008EAE6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB1133751CBB2B05008EAE6D /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				AB1133811CBB2B05008EAE6D /* Info.plist */,
 				AB8532FF1CC6682E000DD163 /* JRayFMEngine.swift */,
 				AB8533011CC66847000DD163 /* LibraryEntry.swift */,
+				27677601247634E70001BD41 /* AppIntentVocabulary.plist */,
 			);
 			path = "JRay FM";
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 			files = (
 				AB1133801CBB2B05008EAE6D /* LaunchScreen.storyboard in Resources */,
 				AB11337D1CBB2B05008EAE6D /* Assets.xcassets in Resources */,
+				27677602247634E70001BD41 /* AppIntentVocabulary.plist in Resources */,
 				AB11337B1CBB2B05008EAE6D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
