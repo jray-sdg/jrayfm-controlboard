@@ -16,6 +16,7 @@ final class LibrarySong {
     var artistName: String
     var albumTitle: String?
     var artworkUrl: URL?
+    @Attribute(.externalStorage) var artworkData: Data?
     var addedDate: Date
     
     var artworkUrlString: String?
@@ -26,6 +27,7 @@ final class LibrarySong {
         artistName: String,
         albumTitle: String? = nil,
         artworkUrl: URL? = nil,
+        artworkData: Data? = nil,
         addedDate: Date = .now
     ) {
         self.musicKitId = musicKitId
@@ -33,6 +35,7 @@ final class LibrarySong {
         self.artistName = artistName
         self.albumTitle = albumTitle
         self.artworkUrl = artworkUrl
+        self.artworkData = artworkData
         self.addedDate = addedDate
     }
 }
